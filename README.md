@@ -1,2 +1,2 @@
 # AngularJS
-Softuni course
+Softuni course - SocialNetwork
