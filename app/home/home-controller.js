@@ -5,7 +5,17 @@ angular.module('socialNetwork.home', [])
             controller: 'HomeCtrl'
         });
     }])
-    .controller('HomeCtrl', ['$scope',function($scope){
-        $scope.hello = 'Zdarawej!';
+    .controller('HomeCtrl', [
+        '$scope',
+        function($scope){
+            $scope.login = function (user) {
+                console.log(user);
+            };
+
+            $scope.register = function (user) {
+
+                console.log(user);
+            };
+
 
     }]);
