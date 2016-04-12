@@ -22,7 +22,7 @@ angular.module('socialNetwork.users.authentication', [])
                 var deferred = $q.defer();
 
                 $http.post(BASE_URL + 'Users/Login', user)
-                    .then(function(){
+                    .then(function(response){
                         deferred.resolve(response.data);
                     }, function(){
 
