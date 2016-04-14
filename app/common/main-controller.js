@@ -4,6 +4,11 @@ angular.module('socialNetwork.common',[])
         '$http',
         'identity',
         function ($scope, $http, identity) {
+
+                identity.getCurrentUser()
+                    .then(function(user){
+                        $scope.currentUser = user;
+                    });
                 $scope.isAuthenticated = identity.isAuthenticated();
 
 

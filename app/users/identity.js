@@ -1,30 +1,36 @@
-angular.module('socialNetwork.users.identity',[])
+angular.module('socialNetwork.users.identity', [])
     .factory('identity', [
         '$http',
+        '$q',
         'BASE_URL',
-        function($http, BASE_URL){
+        function ($http, $q, BASE_URL) {
 
-        var currentUser = undefined;
+            var deferred = $q.defer();
 
-        var accessToken = 'A5du-sUMJeTPhAtaQ2ea_358vBIPYM1ktkaCKUW1k4blz34fDPJZxq2CqmeCqMQqLE458_Lh1v8dsJs0HoBRSfOvm_kXKVP2D2Xadbtbw3fk21DfR49gL9SWvswjjowfzBRTITQqJFGWP2u-AKX26-1Og6eOs1wy1o1Sy7BYdtlFWNI5TXw0OOspE8wDiBeYbfcwPYlznR6NXFaXoUvk8nB-UM17XAtfEPewIuMq1JUXD5imudKYOWGhmT5Y27EaQuC7MZAWNNJlKsPEIpknj2ZRlIk-3CZ6fjq49VY4mg9HACsiunMmYakuSuefDgwxcWD-S8Y-ByKnX4BeqXOs_eJfnNTfF310ZdGPCaneMpLH4Ptc3UJm8aZgj1VNVPFDBHtnA16BtBfqqC9muL9CKxw6OBs_j8J4DsY6R8YYJ_QP4UXL1Q8Ier6Pm6ZZA29iDGuD_S1uZNuVOQrbC7hPxPgF80ncbGZdbIDdV7E5kEKUCUkoK-iJCsQc6HnKEtPc';
-        $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+            var currentUser = undefined;
 
-        var currentUser = $http.get(BASE_URL + 'me')
-            .then(function (response) {
-                console.log(response.data);
-            });
+            var accessToken ='XDv3W7HTpocorcxxChXe23GdtzTL_O82JdXOYfX2zmCdoisCANE6HUn1h-A73ryR9x6uwi8Kz6U2R0GYF8onz7s8PjnaMgHS6w_S0NMCmvcy2qPH3j6e5HHXTlG32FQ2a0CX5H1qViLCoeVrpJG8mlJNmk5el6EmGTXb74axkR-EwlYafHJwSU9iU9ygLKacX8wE-ZceTi4hfVUVlkohrM1yN2GJB7GiFcIJPjQ79P6Fgy2jK52XRDSI6OhH-KB8ln7JuYvQzrmFMAdpOTF_43mMdpwqiyTUvRvSyEULOuskpRsSgRoh2yu36XnrUTQm26jRcZ5V2fFeW8hH2zHqWmXSOcaiW62MaFzKR2EXU2NY-P8WWwWwxJOpYertvCwIBM5MPydOCD-zcg1JPSZS9gakbzSmW7Xc7Udw2UG3N0ysQxucG_Nykqb6chxD0fUWAyclCriKnaH3xTADZMZaMwhN-osyfCck_Rtksi6fRBGw8AuLN-2VB9KMf8ofyJ2n';
+            $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
 
-        var username = 'stoyko1';
+            $http.get(BASE_URL + 'me')
+                .then(function (response) {
+                    currentUser = response.data;
+                    deferred.resolve(response.data);
+                });
 
 
-        return {
-            getCurrentUser: function () {
-                return {
-                    username: username
-                };
-            },
-            isAuthenticated: function (){
-                return true;
-            }
-        };
-    }]);
+
+            return {
+                getCurrentUser: function () {
+                    if(currentUser){
+                        return $q.when(currentUser);
+                    }
+                    else {
+                        return deferred.promise;
+                    }
+                },
+                isAuthenticated: function () {
+                    return true;
+                }
+            };
+        }]);
