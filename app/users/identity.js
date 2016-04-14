@@ -1,7 +1,19 @@
 angular.module('socialNetwork.users.identity',[])
-    .factory('identity', [function(){
+    .factory('identity', [
+        '$http',
+        'BASE_URL',
+        function($http, BASE_URL){
 
-        var accessToken = 'Ab-QOEf2wDsHCGQojq2n60o5N6cINyMMN7dmXOkIDdmNU8CGHuUgG6IXiomcto9drGY7xHivb5MQv_ThM2g2KC737KIROlbpuY4gHG3g82ujmTFJiSXWzVYwxt8n1EpSJxT0Xgrk4GovPp9TpH5D6CQ6XEABaXyz2DhmlfNsNCBySYlCFvgrjiyJ94WnOkJzdNeX_XV2Iaqrj6Cc_M24x1kJUk5_0N_PeQeNE7rpPodvDyLikPrNhSh7nkAXonzO_Uy6Cj_iXgGoi-_kYs5iVTNbV4iv7A4i5Qef0E4T2GthBnz3KFYtBBg7AltO5bMyGUoB633S-oS-xJi4M6noUQybo7fbifnwpLgc8pPEHs7QVSrtCSg2vLQ6MzNammoNft37eKSv9P4g6KITNbdBRh3ZpLbV90pT7C03W-wr2apf2d2iNmtaxiXqkVNOVU2qVg22dzdDXMFImetwqg_3zmqGnn6VOXRbd56Cwf3yah1299FyXbNGfoKsTbLnqarM';
+        var currentUser = undefined;
+
+        var accessToken = 'A5du-sUMJeTPhAtaQ2ea_358vBIPYM1ktkaCKUW1k4blz34fDPJZxq2CqmeCqMQqLE458_Lh1v8dsJs0HoBRSfOvm_kXKVP2D2Xadbtbw3fk21DfR49gL9SWvswjjowfzBRTITQqJFGWP2u-AKX26-1Og6eOs1wy1o1Sy7BYdtlFWNI5TXw0OOspE8wDiBeYbfcwPYlznR6NXFaXoUvk8nB-UM17XAtfEPewIuMq1JUXD5imudKYOWGhmT5Y27EaQuC7MZAWNNJlKsPEIpknj2ZRlIk-3CZ6fjq49VY4mg9HACsiunMmYakuSuefDgwxcWD-S8Y-ByKnX4BeqXOs_eJfnNTfF310ZdGPCaneMpLH4Ptc3UJm8aZgj1VNVPFDBHtnA16BtBfqqC9muL9CKxw6OBs_j8J4DsY6R8YYJ_QP4UXL1Q8Ier6Pm6ZZA29iDGuD_S1uZNuVOQrbC7hPxPgF80ncbGZdbIDdV7E5kEKUCUkoK-iJCsQc6HnKEtPc';
+        $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+
+        var currentUser = $http.get(BASE_URL + 'me')
+            .then(function (response) {
+                console.log(response.data);
+            });
+
         var username = 'stoyko1';
 
 

@@ -1,10 +1,10 @@
 angular.module('socialNetwork.common',[])
     .controller('MainCtrl', [
         '$scope',
+        '$http',
         'identity',
-        function ($scope, identity) {
+        function ($scope, $http, identity) {
                 $scope.isAuthenticated = identity.isAuthenticated();
-                console.log($scope.isAuthenticated);
 
-                //$scope.currentUser = identity.getCurrentUser();
-         }])
+
+         }]);

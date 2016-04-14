@@ -10,6 +10,7 @@ angular.module('socialNetwork.users.authentication', [])
 
                 $http.post(BASE_URL + 'users/Register', user)
                     .then(function(response){
+                        console.log(response.data)
                         deferred.resolve(response.data);
                     }, function(error){
 
